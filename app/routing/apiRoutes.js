@@ -29,7 +29,6 @@ module.exports = function (app) {
   // Then the server saves the data to the friendData array)
   // ---------------------------------------------------------------------------
 
-  // Create New Characters - takes in JSON input
 app.post("/api/friends", function(req, res) {
 	var userData= req.body;
 	var newScore = 0;
@@ -46,7 +45,7 @@ app.post("/api/friends", function(req, res) {
     console.log(friendData)
 
 		for (var j = 0; j < friendData[i].scores.length; j++) {
-			total += Math.abs(friendData[i].scores[j] - userData.scores[j]);
+			total += Math.abs(parseInt(friendData[i].scores[j]) - parseInt(userData.scores[j]));
 
 			if (total <= match.difference) {
 				match.name = friendData[i].name,
@@ -57,6 +56,5 @@ app.post("/api/friends", function(req, res) {
     }
     friendData.push(userData);
     res.json(match);
-    console.log(match);
 });
 }
